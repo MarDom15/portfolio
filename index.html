@@ -6,7 +6,7 @@
     <title>Mon Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Global Styles - CONSERVÉ */
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -18,6 +18,7 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
         
         .container {
@@ -26,7 +27,7 @@
             padding: 0 20px;
         }
         
-        /* Header Styles - CONSERVÉ */
+        /* Header Styles */
         header {
             background-color: #2c3e50;
             color: white;
@@ -95,12 +96,35 @@
             width: 100%;
         }
         
-        /* Bannière - CONSERVÉ */
-        .page-banner {
+        /* Bande image horizontale pour toutes les pages sauf About */
+        .page-content:not(.about-section) {
+            padding-top: 100px; /* Espace pour la bande image */
+            position: relative;
+        }
+        
+        .page-content:not(.about-section)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
+            height: 80px; /* Hauteur de la bande */
+            background-image: url('https://via.placeholder.com/1920x80/3498db/ffffff?text=Bande+Horizontale');
             background-size: cover;
             background-position: center;
+            z-index: -1;
+        }
+        
+        /* Hero Section (pour About) */
+        .hero {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
             margin-bottom: 40px;
             animation: fadeIn 1s ease-out;
         }
@@ -114,25 +138,11 @@
             }
         }
         
-        /* Hero Section - CONSERVÉ */
-        .hero {
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-bottom: 40px;
-            background-color: #34495e;
-            animation: fadeIn 1s ease-out;
-        }
-        
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
             animation: slideInUp 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         @keyframes slideInUp {
@@ -146,7 +156,7 @@
             }
         }
         
-        /* About Me - CONSERVÉ */
+        /* About Me */
         .about-section {
             padding: 80px 0;
         }
@@ -182,7 +192,7 @@
             padding-bottom: 10px;
         }
         
-        /* Portfolio - CONSERVÉ avec améliorations */
+        /* Portfolio */
         .portfolio-section {
             padding: 80px 0;
         }
@@ -221,7 +231,7 @@
             padding: 20px;
         }
         
-        /* Projects Pages - NOUVEAU */
+        /* Projects Pages */
         .projects-section {
             padding: 80px 0;
             display: none;
@@ -291,7 +301,7 @@
             color: #3498db;
         }
         
-        /* Papers - AMÉLIORÉ */
+        /* Papers */
         .papers-section {
             padding: 80px 0;
         }
@@ -330,7 +340,7 @@
             }
         }
         
-        /* Applications - AMÉLIORÉ */
+        /* Applications */
         .apps-section {
             padding: 80px 0;
         }
@@ -369,7 +379,7 @@
             padding: 20px;
         }
         
-        /* App Detail Pages - NOUVEAU */
+        /* App Detail Pages */
         .app-detail-section {
             padding: 80px 0;
             display: none;
@@ -397,7 +407,7 @@
             border-radius: 5px;
         }
         
-        /* Boutons - AMÉLIORÉ */
+        /* Boutons */
         .btn {
             display: inline-block;
             background: #3498db;
@@ -407,6 +417,8 @@
             text-decoration: none;
             margin-top: 15px;
             transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -431,13 +443,14 @@
             background: #1a252f;
         }
         
-        /* Footer - AMÉLIORÉ */
+        /* Footer */
         footer {
             background: #2c3e50;
             color: white;
             padding: 50px 0 20px;
             margin-top: 50px;
             animation: fadeInUp 0.8s ease-out;
+            position: relative;
         }
         
         @keyframes fadeInUp {
@@ -488,7 +501,7 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
         
-        /* Page Content - CONSERVÉ */
+        /* Page Content */
         .page-content {
             display: none;
             animation: fadeIn 0.5s ease-out;
@@ -498,7 +511,7 @@
             display: block;
         }
 
-        /* Scrollbar - CONSERVÉ */
+        /* Scrollbar */
         .about-line::-webkit-scrollbar {
             height: 8px;
         }
@@ -516,10 +529,180 @@
         .about-line::-webkit-scrollbar-thumb:hover {
             background: #2980b9;
         }
+        
+        /* Modal Contact */
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            background: #2c3e50;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+            color: white;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: white;
+        }
+        
+        #contact-form input,
+        #contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        #contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Certifications */
+        .certifications-section {
+            padding: 80px 0;
+        }
+        
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .certifications-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .certification-category {
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .certification-category h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .certification-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .certification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .certification-item h3 {
+            color: #3498db;
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        #theme-toggle {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        #theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .about-card,
+        body.dark-mode .portfolio-item,
+        body.dark-mode .project-item,
+        body.dark-mode .paper-item,
+        body.dark-mode .app-item,
+        body.dark-mode .certification-category,
+        body.dark-mode .app-detail-content {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode .about-card h2,
+        body.dark-mode .certification-item h3 {
+            color: #3498db;
+        }
+        
+        body.dark-mode .certification-category h2 {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .paper-item,
+        body.dark-mode .certification-item {
+            border-bottom-color: #333;
+        }
     </style>
 </head>
 <body>
-    <!-- Header with Navigation - CONSERVÉ -->
+    <!-- Header with Navigation -->
     <header>
         <div class="container">
             <nav>
@@ -527,24 +710,24 @@
                 <ul class="nav-links">
                     <li><a href="#" class="nav-link" data-page="about">About Me</a></li>
                     <li><a href="#" class="nav-link" data-page="portfolio">Portfolio</a></li>
-                    <li><a href="#" class="nav-link" data-page="papers">Papers</a></li>
+                    <li><a href="#" class="nav-link" data-page="papers">Publications</a></li>
                     <li><a href="#" class="nav-link" data-page="apps">Applications</a></li>
+                    <li><a href="#" class="nav-link" data-page="certifications">Diplômes & Certifs</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section - CONSERVÉ -->
-    <section class="hero" id="main-hero">
+    <!-- Hero Section (uniquement pour About) -->
+    <section class="hero" id="main-hero" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=Bienvenue+sur+mon+Portfolio');">
         <div class="container">
             <h1>Bienvenue sur mon Portfolio</h1>
             <p>Découvrez mon travail et mes projets</p>
         </div>
     </section>
 
-    <!-- About Me Page - CONSERVÉ -->
+    <!-- About Me Page -->
     <section id="about" class="page-content about-section active-page">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=About+Me+Banner');"></div>
         <div class="container">
             <div class="about-line">
                 <div class="about-card">
@@ -560,16 +743,14 @@
                 <div class="about-card">
                     <h2>Me Contacter</h2>
                     <p>Vous pouvez me contacter pour des collaborations, des questions ou des opportunités professionnelles.</p>
-                    <p>Email: votre@email.com</p>
-                    <p>Téléphone: +XX XXX XXX XXX</p>
+                    <p><i class="fas fa-phone"></i> +XX XXX XXX XXX</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Page - AMÉLIORÉ -->
+    <!-- Portfolio Page -->
     <section id="portfolio" class="page-content portfolio-section">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=Portfolio+Banner');"></div>
         <div class="container">
             <h1>Portfolio</h1>
             <div class="portfolio-grid">
@@ -609,9 +790,8 @@
         </div>
     </section>
 
-    <!-- Projects Pages - NOUVEAU -->
+    <!-- Projects Pages -->
     <section id="ml-projects" class="page-content projects-section">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=Machine+Learning+Projects');"></div>
         <div class="container">
             <h1>Projets Machine Learning</h1>
             <div class="projects-grid">
@@ -646,9 +826,8 @@
         </div>
     </section>
 
-    <!-- Papers Page - AMÉLIORÉ -->
+    <!-- Papers Page -->
     <section id="papers" class="page-content papers-section">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=Papers+Banner');"></div>
         <div class="container">
             <h1>Articles et Publications</h1>
             <div class="paper-item">
@@ -676,9 +855,8 @@
         </div>
     </section>
 
-    <!-- Applications Page - AMÉLIORÉ -->
+    <!-- Applications Page -->
     <section id="apps" class="page-content apps-section">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=Applications+Banner');"></div>
         <div class="container">
             <h1>Applications Produites</h1>
             <div class="apps-grid">
@@ -710,9 +888,8 @@
         </div>
     </section>
 
-    <!-- Application Detail Pages - NOUVEAU -->
+    <!-- Application Detail Pages -->
     <section id="app1-detail" class="page-content app-detail-section">
-        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x200?text=Assistant+Personnel+Intelligent');"></div>
         <div class="container">
             <div class="app-detail-content">
                 <h1>Assistant Personnel Intelligent</h1>
@@ -747,14 +924,58 @@
         </div>
     </section>
 
-    <!-- Footer - AMÉLIORÉ -->
+    <!-- Certifications Page -->
+    <section id="certifications" class="page-content certifications-section">
+        <div class="container">
+            <h1>Diplômes & Certifications</h1>
+            
+            <div class="certifications-grid">
+                <div class="certification-category">
+                    <h2><i class="fas fa-graduation-cap"></i> Diplômes</h2>
+                    <div class="certification-item">
+                        <h3>Master en Informatique</h3>
+                        <p>Université XYZ - 2022</p>
+                        <p>Spécialisation en Intelligence Artificielle</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Licence en Mathématiques</h3>
+                        <p>Université ABC - 2020</p>
+                    </div>
+                </div>
+                
+                <div class="certification-category">
+                    <h2><i class="fas fa-certificate"></i> Certifications</h2>
+                    <div class="certification-item">
+                        <h3>AWS Certified Solutions Architect</h3>
+                        <p>Amazon Web Services - 2023</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Google Cloud Professional</h3>
+                        <p>Google Cloud - 2022</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Microsoft Azure Fundamentals</h3>
+                        <p>Microsoft - 2021</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Certification en Finance Quantitative</h3>
+                        <p>Institut de Finance - 2020</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Contactez-moi</h3>
-                    <p>Email: votre@email.com</p>
-                    <p>Téléphone: +XX XXX XXX XXX</p>
+                    <a href="#" id="email-link" class="contact-link">
+                        <i class="fas fa-envelope"></i> Envoyer un message
+                    </a>
+                    <p><i class="fas fa-phone"></i> +XX XXX XXX XXX</p>
                 </div>
                 <div class="footer-section">
                     <h3>Réseaux sociaux</h3>
@@ -772,9 +993,30 @@
         </div>
     </footer>
 
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Envoyez-moi un message</h3>
+            <form id="contact-form">
+                <input type="email" placeholder="Votre email" required>
+                <input type="tel" placeholder="Votre numéro">
+                <textarea placeholder="Votre message" required></textarea>
+                <button type="submit" class="btn">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="theme-toggle">
+            <i class="fas fa-moon"></i> Mode Sombre
+        </button>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Navigation principale - CONSERVÉ
+            // Navigation principale
             const navLinks = document.querySelectorAll('.nav-link');
             const pages = document.querySelectorAll('.page-content');
             const heroSection = document.getElementById('main-hero');
@@ -787,7 +1029,7 @@
                 window.scrollTo(0, 0);
                 
                 // Gestion de la section hero
-                if (pageId === 'about') {
+                if (pageId === 'about' || pageId === 'certifications') {
                     heroSection.style.display = 'flex';
                 } else {
                     heroSection.style.display = 'none';
@@ -802,7 +1044,7 @@
                 });
             });
             
-            // Navigation vers projets détaillés - NOUVEAU
+            // Navigation vers projets détaillés
             const portfolioDetailBtns = document.querySelectorAll('.portfolio-detail-btn');
             portfolioDetailBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -812,7 +1054,7 @@
                 });
             });
             
-            // Navigation vers détails d'application - NOUVEAU
+            // Navigation vers détails d'application
             const appDetailBtns = document.querySelectorAll('.app-detail-btn');
             appDetailBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -822,7 +1064,7 @@
                 });
             });
             
-            // Boutons retour - NOUVEAU
+            // Boutons retour
             const backButtons = document.querySelectorAll('.back-to-portfolio, .back-to-apps');
             backButtons.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -835,14 +1077,46 @@
                 });
             });
             
-            // Fonctionnalité "Lire la suite" pour les articles - CONSERVÉ
-            const readMoreButtons = document.querySelectorAll('.read-more');
-            readMoreButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const paperItem = this.closest('.paper-item');
-                    paperItem.classList.toggle('expanded');
-                    this.textContent = paperItem.classList.contains('expanded') ? 'Réduire' : 'Lire la suite';
-                });
+            // Modal Contact
+            const modal = document.getElementById("contact-modal");
+            const btn = document.getElementById("email-link");
+            const span = document.getElementsByClassName("close")[0];
+            
+            btn.onclick = function(e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+            
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            
+            document.getElementById("contact-form").onsubmit = function(e) {
+                e.preventDefault();
+                alert("Message envoyé! Je vous répondrai bientôt.");
+                modal.style.display = "none";
+            }
+            
+            // Theme Switcher
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.className = 'fas fa-sun';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Mode Clair';
+                } else {
+                    icon.className = 'fas fa-moon';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> Mode Sombre';
+                }
             });
             
             // Afficher About Me par défaut
