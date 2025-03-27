@@ -96,36 +96,16 @@
             width: 100%;
         }
         
-        /* Bande image horizontale pour toutes les pages sauf About */
-        .page-content:not(.about-section) {
-            padding-top: 100px; /* Espace pour la bande image */
-            position: relative;
-        }
-        
-        .page-content:not(.about-section)::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Bannière pour toutes les pages */
+        .page-banner {
             width: 100%;
-            height: 80px; /* Hauteur de la bande */
-            background-image: url('https://via.placeholder.com/1920x80/3498db/ffffff?text=Bande+Horizontale');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-        }
-        
-        /* Hero Section (pour About) */
-        .hero {
             height: 300px;
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
             margin-bottom: 40px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
             animation: fadeIn 1s ease-out;
         }
         
@@ -138,22 +118,14 @@
             }
         }
         
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            animation: slideInUp 1s ease-out;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .banner-text {
+            color: white;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.6);
+            font-size: 24px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
         
         /* About Me */
@@ -699,6 +671,10 @@
         body.dark-mode .certification-item {
             border-bottom-color: #333;
         }
+        
+        body.dark-mode .banner-text {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -718,16 +694,11 @@
         </div>
     </header>
 
-    <!-- Hero Section (uniquement pour About) -->
-    <section class="hero" id="main-hero" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=Bienvenue+sur+mon+Portfolio');">
-        <div class="container">
-            <h1>Bienvenue sur mon Portfolio</h1>
-            <p>Découvrez mon travail et mes projets</p>
-        </div>
-    </section>
-
     <!-- About Me Page -->
     <section id="about" class="page-content about-section active-page">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=About+Me')">
+            <div class="banner-text">Découvrez qui je suis et ce que je fais</div>
+        </div>
         <div class="container">
             <div class="about-line">
                 <div class="about-card">
@@ -751,8 +722,10 @@
 
     <!-- Portfolio Page -->
     <section id="portfolio" class="page-content portfolio-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/2c3e50/ffffff?text=Portfolio')">
+            <div class="banner-text">Explorez mes projets et réalisations</div>
+        </div>
         <div class="container">
-            <h1>Portfolio</h1>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-image" style="background-image: url('https://via.placeholder.com/600x400?text=ML+Project');"></div>
@@ -792,8 +765,10 @@
 
     <!-- Projects Pages -->
     <section id="ml-projects" class="page-content projects-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=Projets+Machine+Learning')">
+            <div class="banner-text">Mes projets en intelligence artificielle</div>
+        </div>
         <div class="container">
-            <h1>Projets Machine Learning</h1>
             <div class="projects-grid">
                 <div class="project-item">
                     <div class="project-image" style="background-image: url('https://via.placeholder.com/800x400?text=Projet+ML+1');"></div>
@@ -828,8 +803,10 @@
 
     <!-- Papers Page -->
     <section id="papers" class="page-content papers-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/2c3e50/ffffff?text=Publications')">
+            <div class="banner-text">Mes recherches et contributions académiques</div>
+        </div>
         <div class="container">
-            <h1>Articles et Publications</h1>
             <div class="paper-item">
                 <div class="paper-content">
                     <h3>Optimisation des Algorithmes d'Apprentissage Automatique</h3>
@@ -857,8 +834,10 @@
 
     <!-- Applications Page -->
     <section id="apps" class="page-content apps-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=Applications')">
+            <div class="banner-text">Mes applications et réalisations techniques</div>
+        </div>
         <div class="container">
-            <h1>Applications Produites</h1>
             <div class="apps-grid">
                 <div class="app-item">
                     <div class="app-image" style="background-image: url('https://via.placeholder.com/600x400?text=App+1');"></div>
@@ -890,6 +869,9 @@
 
     <!-- Application Detail Pages -->
     <section id="app1-detail" class="page-content app-detail-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/2c3e50/ffffff?text=Assistant+Personnel')">
+            <div class="banner-text">Détails de mon application intelligente</div>
+        </div>
         <div class="container">
             <div class="app-detail-content">
                 <h1>Assistant Personnel Intelligent</h1>
@@ -926,9 +908,10 @@
 
     <!-- Certifications Page -->
     <section id="certifications" class="page-content certifications-section">
+        <div class="page-banner" style="background-image: url('https://via.placeholder.com/1920x300/3498db/ffffff?text=Diplomes+Certifications')">
+            <div class="banner-text">Mes qualifications et accréditations</div>
+        </div>
         <div class="container">
-            <h1>Diplômes & Certifications</h1>
-            
             <div class="certifications-grid">
                 <div class="certification-category">
                     <h2><i class="fas fa-graduation-cap"></i> Diplômes</h2>
@@ -1027,13 +1010,6 @@
                 });
                 document.getElementById(pageId).style.display = 'block';
                 window.scrollTo(0, 0);
-                
-                // Gestion de la section hero
-                if (pageId === 'about' || pageId === 'certifications') {
-                    heroSection.style.display = 'flex';
-                } else {
-                    heroSection.style.display = 'none';
-                }
             }
             
             navLinks.forEach(link => {
